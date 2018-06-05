@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link rel="Stylesheet" href="style.css" />
+    <script language="javascript" type="text/javascript" src="JS/jquery.js?126"></script>
+    <script language="javascript" type="text/javascript" src="JS/sudoku.js"></script>
+    <script language="javascript" type="text/javascript" src="JS/timers.js"></script>
+    <script language="javascript" type="text/javascript" src="JS/data.js?1"></script>
+    <script language="javascript" type="text/javascript" src="JS/blockUI.js?2"></script>
+    <script language="javascript" type="text/javascript">
+    var gameIntroduce = "<div style='text-align:right;background-color:#ffffff;'><span style='color:red;font-size:20pt;' onclick='$(g.convas).unblock();'><b>X</b></span></div><div style='font-size:11pt;text-align:left'><span></span><p>数独是源自18世纪瑞士的一种数学游戏。是一种运用纸、笔进行演算的逻辑游戏。玩家需要根据9×9盘面上的已知数字，推理出所有剩余空格的数字，并满足每一行、每一列、每一个粗线宫（3*3）内的数字均含1-9，不重复。</p><p>数独盘面是个九宫，每一宫又分为九个小格。在这八十一格中给出一定的已知数字和解题条件，利用逻辑和推理，在其他的空格上填入1-9的数字。使1-9每个数字在每一行、每一列和每一宫中都只出现一次，所以又称“九宫格”。</p><p>(以上介绍内容摘自<a href='http://baike.baidu.com/link?url=4nDYEuKesYvhEuSh67PbT61xy4EMwqC7KqynTUGEf95uzhyJw49SK53aC1XxDMrx4BHtitA7d0sMwGilghQeG2bMHQjd59rz8MV-3K9svai'><b>“百度百科”</b></a>)</p></div>";
+    var aboutGame = "<div style='text-align:right;background-color:#ffffff;'><span style='color:red;font-size:20pt;' onclick='$(g.convas).unblock();'><b>X</b></span></div><div><p>Sudoku V1.0</p><p>开发者：</p><p>华科软件1504刘博谦</p></div>";
+
+
+        $(document).ready(function()
+            {
+                finit(0);
+                $(this).keydown(function(event)
+            {
+                if(event.keyCode==8||event.keyCode==46)
+                    $(g.selectedsquare).setempty();
+                if(event.keyCode<58 && event.keyCode>48)
+                    {
+                        $(g.selectedsquare).setnum(event.keyCode)
+                    }
+                }).keyup(function(){$(g.selectedsquare).check();});
+            document.oncontextmenu=function(e)
+            {
+                return false;
+            };
+            $(g.leftsg).gennumcount().refreshnumcount();
+        })
+        </script>
+    </head>
+    <body onselectstart="return false" oncopy="return false" oncut="return false" background="back.png">
+        <center>
+            <div id="main" style="width: 720px;height: 550px;">
+                <div id="canvas" style='width: 540px;height: 540px;float:left'>
+                    
+                </div>
+                <div id="tools">
+                    <div id="logo">
+                        SUDOKU
+                    </div>
+                    <div id="level">    
+                        关卡:
+                    </div>
+                    <div id="lefts">    
+                    </div>
+                    <div id="timer">
+                        计时器:
+                    </div>
+                    <br/>
+                    <div id="btns">
+                        <input type='button' value='简 单' onclick="$(g.canvas).gensudoku(2);$('#level').html('关卡:简单');">
+                        <br/>
+                        <br/>
+                        <input type='button' value='中 等' onclick="$(g.canvas).gensudoku(3);$('#level').html('关卡:中等');">
+                        <br/>
+                        <br/>
+                        <input type='button' value='困 难' onclick="$(g.canvas).gensudoku(6);$('#level').html('关卡:困难');">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <input type='button' value='游 戏 规 则' onclick="$(g.canvas).unblock().block({ message: gameIntroduce, css: {width:'480px', border: '3px solid #9955ff' } });">
+                        <br/>
+                        <br/>
+                        <input type='button' value='开 发 相 关' onclick="$(g.canvas).unblock().block({ message: aboutGame, css: {width:'400px', border: '3px solid #9955ff' } });">
+                        <br/>
+                    </div>
+                    <div id="err">
+                    </div>
+                </div>
+            </center>
+        </div>
+
+    </body>
+    </html>
